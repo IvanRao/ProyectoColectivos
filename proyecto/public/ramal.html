@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<link href="../css/app.css" rel="stylesheet">
+		<script src="../js/app.js"></script>
+		<script src="../js/ramal.js"></script>		
+	</head>
+
+	<body>
+			
+	<div id="app" class="container">
+		<table class="table">
+			<tr>
+				<th>Id</th>
+				<th>Ramal</th>
+				<th>Acción</th>
+			</tr>
+			<tr  v-for="ramal in ramales">
+				<td>
+					{{ ramal.id }}
+				</td>
+				<td >
+					{{ ramal.nombre }}
+				</td>
+				<td>
+					
+					<a v-on:click="deleteRamal(ramal)">
+						<button type="button" class="btn btn-danger">Borrar</button>
+					</a>
+				</td>
+			</tr>
+		</table>
+		
+		<div class="form-group mx-sm-3 mb-2">
+			<input class="form-control" id="inputPassword2" placeholder="Ingrese el nombre del ramal" v-model="nuevoRamal">
+			<button type="button" class="btn btn-success" v-on:click="agregarRamal(nuevoRamal)">Agregar</button>
+		</div>
+
+	</div>
+
+	
+		
+	</body>
+
+
+</html>
