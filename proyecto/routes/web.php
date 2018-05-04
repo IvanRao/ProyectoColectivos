@@ -15,7 +15,24 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/ramal','RamalController@getAll');
-Route::post('/ramal','RamalController@add');
-Route::put('/ramal/{id}','RamalController@update');
-Route::delete('/ramal/{id}','RamalController@delete');
+Route::get('/branch', function () {
+    return view('branch');
+});
+
+Route::get('/stop', function () {
+    return view('stop');
+});
+
+
+Route::get('api/branch','BranchController@getAll');
+Route::get('api/branch/{id}','BranchController@getById');
+Route::post('api/branch','BranchController@add');
+Route::put('api/branch/{id}','BranchController@update');
+Route::delete('api/branch/{id}','BranchController@delete');
+
+
+Route::get('api/stop','stopController@getAll');
+Route::get('api/stop/{branch_id}','stopController@getById');
+Route::post('api/stop','stopController@add');
+Route::put('api/stop/{id}','stopController@update');
+Route::delete('api/stop/{id}','stopController@delete');
