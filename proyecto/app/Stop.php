@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Stop extends Model
 {
-    function branches(){
-        return $this->belongsTo("app\branch");
+    function Branch(){
+        return $this->belongsTo('App\Branch');
     }
 }

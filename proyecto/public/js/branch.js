@@ -2,7 +2,6 @@ window.addEventListener("load",()=> {
     const data = {
         branches : {},
         newBranch : { name },
-        savedModBranch : {},
         modBranch : {}
     }
     

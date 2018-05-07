@@ -35,7 +35,7 @@ class StopController extends Controller
         return "ok";
     }
 
-    function update(Request $req){
+    function update($id,Request $req){
         //$req->validate([
           //  'name'->'required|unique:branches|max 191'
         //]);

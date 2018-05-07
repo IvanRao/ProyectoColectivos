@@ -12,7 +12,7 @@
 	<header>
 
 			<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
-				<a class="navbar-brand" href="branch.html">Linea 101</a>
+				<a class="navbar-brand" href="branch">Linea 101</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
@@ -66,9 +66,9 @@
 							<button type="button" class="btn btn-success" data-toggle="modal" data-target="#ModifyBranch" v-on:click="fillModifyModal(branch)">Modificar</button>
 							<button type="button" class="btn btn-danger" v-on:click="deleteBranch(branch)">Borrar</button>
 						</div>
-						<button type="button" class="btn btn-warning">
-							<a v-bind:href="'{{ url('/stop') }}?id=' + branch.id">Paradas</a>
-						</button>
+						
+							<a v-bind:href="'{{ url('/stop') }}?id=' + branch.id"><button type="button" class="btn btn-warning">Paradas</button></a>
+						
 					</td>
 				</tr>
 				

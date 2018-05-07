@@ -2,6 +2,7 @@ function appStop(){
 
     const data = {
         branch : {},
+        modStop : {},
         stopToCreate : {
             name :"",
             order : 0,
@@ -19,23 +20,37 @@ function appStop(){
             .then(resp => data.branch = resp.data)
             .catch(error => console.error(error.response.data))
     }
-    
-    function updateTable(){
-        axios.get("api/stop/" + branch.id)
+
+    function deleteStop(stop){
+        axios.delete("api/stop/" + stop.id)
+            .then((resp)=>updatePage())
+            .catch((err)=>
+                console.error(err.response.data)
+            )
+    }
+
+    function fillModifyModal(stop){
+        axios.get("api/stop/" + stop.id)
             .then((resp)=>
-                data.stops = resp.data
+                data.modStop = resp.data
             )
             .catch((err)=>
                 console.error(err.response.data)
             )
     }
 
-    function deleteStop(stop){
-        axios.delete("api/stop/" + stop.id)
-            .then((resp)=>updateTable())
-            .catch((err)=>
-                console.error(err.response.data)
-            )
+    function modifyStop(stop){
+        axios.put("api/stop/" + stop.id, {order:stop.order, name:stop.name, latitude:stop.latitude, longitude:stop.longitude, branch_id:stop.branch_id})
+        .then((resp)=>{
+            updatePage();
+            data.modStop.name = "";   
+            data.modStop.order = 0; 
+            data.modStop.latitude = 0; 
+            data.modStop.longitude = 0; 
+        })
+        .catch((err)=>
+            console.error(err.response.data)
+        )
     }
 
     setTimeout( () =>{
@@ -54,6 +69,46 @@ function appStop(){
             const latLng = e.latLng
             data.stopToCreate.latitude = latLng.lat()
             data.stopToCreate.longitude = latLng.lng()
+        })
+        
+    },100)
+
+    setTimeout( () =>{
+        var bsas = {lat: -34.6037, lng: -58.3816};
+    
+        var map2 = new google.maps.Map(document.getElementById('map2'), {
+            zoom: 12,
+            center: bsas
+        })
+
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+        var directionsService = new google.maps.DirectionsService;
+        directionsDisplay.setMap(map2);
+
+        map2.addListener("click", (e) => {
+            const latLng = e.latLng
+            data.modStop.latitude = latLng.lat()
+            data.modStop.longitude = latLng.lng()
+        })
+        
+    },100)
+
+    setTimeout( () =>{
+        var bsas = {lat: -34.6037, lng: -58.3816};
+    
+        var map3 = new google.maps.Map(document.getElementById('map3'), {
+            zoom: 12,
+            center: bsas
+        })
+
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+        var directionsService = new google.maps.DirectionsService;
+        directionsDisplay.setMap(map3);
+
+        map2.addListener("click", (e) => {
+            const latLng = e.latLng
+            data.modStop.latitude = latLng.lat()
+            data.modStop.longitude = latLng.lng()
         })
         
     },100)
@@ -127,9 +182,10 @@ function appStop(){
         data: data,
         methods:{
             deleteStop : deleteStop,
-            addStop : addStop
+            addStop : addStop,
+            modifyStop : modifyStop,
+            fillModifyModal : fillModifyModal,
         }
     })
-
+    updatePage();
 }
-

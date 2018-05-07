@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Branch extends Model
 {
-    function stops(){
-        return $this->hasMany("app\Stop")->orderBy("order","asc");
+    function Stops(){
+        return $this->hasMany('App\Stop')->orderBy('order', 'asc');
     }
 }
