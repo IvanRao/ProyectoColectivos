@@ -76,7 +76,7 @@
 		<div  id="appStop">
 			<div id="Titulo">
 				<h1 class="VerRecorrido">Ramal @{{branch.name}}</h1>
-				<button type="button" class="btn btn-success" id="VerRecorridoBoton" data-toggle="modal" data-target="#VerRecorrido" v-on:click="">Ver recorrido</button>
+				<button type="button" class="btn btn-success" id="VerRecorridoBoton" data-toggle="modal" data-target="#VerRecorrido" v-on:click="updateMarkers(branch.stops)">Ver recorrido</button>
 				<button type="button" class="btn btn-primary" id="NuevaParada" data-toggle="modal" data-target="#NewStop">Agregar</button>
 			</div>
 			

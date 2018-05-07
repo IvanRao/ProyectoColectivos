@@ -105,7 +105,7 @@ function appStop(){
         var directionsService = new google.maps.DirectionsService;
         directionsDisplay.setMap(map3);
 
-        map2.addListener("click", (e) => {
+        map3.addListener("click", (e) => {
             const latLng = e.latLng
             data.modStop.latitude = latLng.lat()
             data.modStop.longitude = latLng.lng()
@@ -185,6 +185,7 @@ function appStop(){
             addStop : addStop,
             modifyStop : modifyStop,
             fillModifyModal : fillModifyModal,
+            updateMarkers : updateMarkers
         }
     })
     updatePage();

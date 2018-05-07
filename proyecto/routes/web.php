@@ -36,3 +36,7 @@ Route::get('api/stop/{branch_id}','stopController@getById');
 Route::post('api/stop','stopController@add');
 Route::put('api/stop/{id}','stopController@update');
 Route::delete('api/stop/{id}','stopController@delete');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
