@@ -23,9 +23,9 @@ class BranchController extends Controller
     }
 
     function add(Request $req){
-        //$req->validate([
-          //  'name'->'required|unique:branches|max 191'
-        //]);
+        $req->validate([
+           'name'=>'required|max 191'
+        ]);
         $branch = new branch;
         $branch->name = $req->name;
         $branch->save();
@@ -33,9 +33,9 @@ class BranchController extends Controller
     }
 
     function update($id,Request $req){
-        //$req->validate([
-          //  'name'->'required|unique:branches|max 191'
-        //]);
+        $req->validate([
+           'name'=>'required|max 191'
+        ]);
         $branch = branch::FindOrFail($id);
         $branch->name = $req->name;
         $branch->save();
@@ -47,6 +47,9 @@ class BranchController extends Controller
         $branch->delete();
     }
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
-  
 }

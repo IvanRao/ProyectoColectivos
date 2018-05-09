@@ -22,9 +22,12 @@ class StopController extends Controller
     }
 
     function add(Request $req){
-        //$req->validate([
-          //  'name'->'required|unique:branches|max 191'
-        //]);
+        $req->validate([
+           'order'=>'required|max 191', 
+           'name'=>'required|max 191', 
+           'latitude'=>'required|max 191', 
+           'longitude'=>'required|max 191', 
+        ]);
         $stop = new stop;
         $stop->order = $req->order;
         $stop->name = $req->name;
@@ -36,9 +39,12 @@ class StopController extends Controller
     }
 
     function update($id,Request $req){
-        //$req->validate([
-          //  'name'->'required|unique:branches|max 191'
-        //]);
+        $req->validate([
+            'order'=>'required|max 191', 
+            'name'=>'required|max 191', 
+            'latitude'=>'required|max 191', 
+            'longitude'=>'required|max 191', 
+         ]);
         $stop = stop::FindOrFail($id);
         $stop->order = $req->order;
         $stop->name = $req->name;
@@ -52,6 +58,11 @@ class StopController extends Controller
     function delete($id,Request $req){
         $stop = stop::FindOrFail($id);
         $stop->delete();
+    }
+
+    public function __construct()
+    {
+        $this->middleware('auth');
     }
 
 }

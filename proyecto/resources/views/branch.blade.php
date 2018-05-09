@@ -9,7 +9,7 @@
 
 	<body>
 
-	<header>
+		<header>
 
 			<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
 				<a class="navbar-brand" href="branch">Linea 101</a>
@@ -22,100 +22,109 @@
 						<li class="nav-item">
 							<a class="nav-link" href="branch">Ramales</a>
 						</li>
-						<!-- <li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Dropdown
-							</a>
-							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="#">Action</a>
-							<a class="dropdown-item" href="#">Another action</a>
-							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="#">Something else here</a>
-							</div>
-						</li> -->
 					</ul>
-					<form class="form-inline my-2 my-lg-0">
-					<input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
-					<button class="btn btn-success my-2 my-sm-0" type="submit">Buscar</button>
-					</form>
+					<ul class="navbar-nav ml-auto">
+						@guest
+							<li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
+							<li><a class="nav-link" href="{{ route('register') }}">{{ __('Registrar') }}</a></li>
+						@else
+							<li class="nav-item dropdown">
+								<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+									{{ Auth::user()->name }} <span class="caret"></span>
+								</a>
+
+								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+									<a class="dropdown-item" href="{{ route('logout') }}"
+										onclick="event.preventDefault();
+														document.getElementById('logout-form').submit();">
+										{{ __('Salir') }}
+									</a>
+
+									<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+										@csrf
+									</form>
+								</div>
+							</li>
+						@endguest
+					</ul>	
 				</div>
 			</nav>
-			
-	</header>
-	
-	<main>
-	
-		<div  id="appBranch">
-			<table class="table table-hover">
-				<thead class="thead-dark">
-					<tr>
-						<th scope="col">#</th>
-						<th scope="col">Ramal</th>
-						<th scope="col">Acción</th>
-					</tr>
-				</thead>
-				<tr  v-for="branch in branches">
-					<td>
-						@{{ branch.id }}
-					</td>
-					<td >
-						@{{ branch.name }}
-					</td>
-					<td>
-						<div class="btn-group btn-group-toggle" data-toggle="buttons">
-							<button type="button" class="btn btn-success" data-toggle="modal" data-target="#ModifyBranch" v-on:click="fillModifyModal(branch)">Modificar</button>
-							<button type="button" class="btn btn-danger" v-on:click="deleteBranch(branch)">Borrar</button>
-						</div>
-						
-							<a v-bind:href="'{{ url('/stop') }}?id=' + branch.id"><button type="button" class="btn btn-warning">Paradas</button></a>
-						
-					</td>
-				</tr>
 				
-			</table>
-			
-			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#NewBranch">Agregar</button>
-
-			<div id="NewBranch" class="modal fade" role="dialog">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h4 class="modal-title">Nuevo ramal</h4>
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
-						</div>
-						<div class="modal-body">
-							<input class="form-control" placeholder="Ingrese el nombre del ramal" v-model="newBranch.name">
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-							<button type="button" class="btn btn-success" data-dismiss="modal" v-on:click="addBranch(newBranch)">Guardar</button>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div id="ModifyBranch" class="modal fade" role="dialog">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h4 class="modal-title">Modificar ramal</h4>
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
-						</div>
-						<div class="modal-body">
-							<input class="form-control" v-model="modBranch.name">
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-							<button type="button" class="btn btn-success" data-dismiss="modal" v-on:click="modifyBranch(modBranch.id, modBranch.name)">Guardar</button>
-						</div>
-					</div>
-				</div>
-			</div>
-
-		</div>
-
-	</main>
+		</header>
+	
+		<main>
 		
+			<div  id="appBranch">
+				<table class="table table-hover">
+					<thead class="thead-dark">
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">Ramal</th>
+							<th scope="col">Acción</th>
+						</tr>
+					</thead>
+					<tr  v-for="branch in branches">
+						<td>
+							@{{ branch.id }}
+						</td>
+						<td >
+							@{{ branch.name }}
+						</td>
+						<td>
+							<div class="btn-group btn-group-toggle" data-toggle="buttons">
+								<button type="button" class="btn btn-success" data-toggle="modal" data-target="#ModifyBranch" v-on:click="fillModifyModal(branch)">Modificar</button>
+								<button type="button" class="btn btn-danger" v-on:click="deleteBranch(branch)">Borrar</button>
+							</div>
+							
+								<a v-bind:href="'{{ url('/stop') }}?id=' + branch.id"><button type="button" class="btn btn-warning">Paradas</button></a>
+							
+						</td>
+					</tr>
+					
+				</table>
+				
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#NewBranch">Agregar</button>
+
+				<div id="NewBranch" class="modal fade" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4 class="modal-title">Nuevo ramal</h4>
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+							</div>
+							<div class="modal-body">
+								<input class="form-control" placeholder="Ingrese el nombre del ramal" v-model="newBranch.name">
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+								<button type="button" class="btn btn-success" data-dismiss="modal" v-on:click="addBranch(newBranch)">Guardar</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div id="ModifyBranch" class="modal fade" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4 class="modal-title">Modificar ramal</h4>
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+							</div>
+							<div class="modal-body">
+								<input class="form-control" v-model="modBranch.name">
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+								<button type="button" class="btn btn-success" data-dismiss="modal" v-on:click="modifyBranch(modBranch.id, modBranch.name)">Guardar</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</main>
+			
 	</body>
 
 

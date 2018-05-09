@@ -11,17 +11,17 @@
 |
 */
 
-Route::get('/', function () {
+Route::get('/welcome', function () {
     return view('welcome');
 });
 
 Route::get('/branch', function () {
     return view('branch');
-});
+})->middleware('auth');
 
 Route::get('/stop', function () {
     return view('stop');
-});
+})->middleware('auth');
 
 
 Route::get('api/branch','BranchController@getAll');
@@ -38,5 +38,3 @@ Route::put('api/stop/{id}','stopController@update');
 Route::delete('api/stop/{id}','stopController@delete');
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
