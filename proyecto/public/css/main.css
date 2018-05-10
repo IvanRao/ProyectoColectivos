@@ -1,0 +1,24 @@
+.map{
+    width: 465px;
+    height: 400px;
+    display: block;
+    border-radius: 5px;
+}
+.map3{
+    width: 767px;
+    height: 400px;
+    display: block;
+    border-radius: 5px;
+}
+.VerRecorrido{
+    text-align: center;
+}
+#VerRecorridoBoton{
+    display: inline-block;
+}
+#NuevaParada{
+    display: inline-block;
+}
+#Titulo{
+    padding: 5px;
+}

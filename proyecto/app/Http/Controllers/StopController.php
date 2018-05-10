@@ -23,10 +23,10 @@ class StopController extends Controller
 
     function add(Request $req){
         $req->validate([
-           'order'=>'required|max 191', 
-           'name'=>'required|max 191', 
-           'latitude'=>'required|max 191', 
-           'longitude'=>'required|max 191', 
+           'order'=>'required|max:255', 
+           'name'=>'required|max:255', 
+           'latitude'=>'required|max:255', 
+           'longitude'=>'required|max:255', 
         ]);
         $stop = new stop;
         $stop->order = $req->order;
@@ -40,10 +40,10 @@ class StopController extends Controller
 
     function update($id,Request $req){
         $req->validate([
-            'order'=>'required|max 191', 
-            'name'=>'required|max 191', 
-            'latitude'=>'required|max 191', 
-            'longitude'=>'required|max 191', 
+            'order'=>'required|max:255', 
+            'name'=>'required|max:255', 
+            'latitude'=>'required|max:255', 
+            'longitude'=>'required|max:255', 
          ]);
         $stop = stop::FindOrFail($id);
         $stop->order = $req->order;

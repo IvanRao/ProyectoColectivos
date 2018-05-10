@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<link href="../css/app.css" rel="stylesheet">
+		<link href="../css/main.css" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<script src="../js/app.js"></script>
 		<script src="../js/branch.js"></script>		
@@ -12,7 +13,7 @@
 		<header>
 
 			<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
-				<a class="navbar-brand" href="branch">Linea 101</a>
+				<a class="navbar-brand" href="welcome">Linea 101</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>

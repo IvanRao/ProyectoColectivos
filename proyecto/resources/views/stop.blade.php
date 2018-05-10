@@ -2,37 +2,11 @@
 <html>
 	<head>
 		<link href="../css/app.css" rel="stylesheet">
+		<link href="../css/main.css" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<script src="../js/app.js"></script>
         <script src="../js/stop.js"></script>	
 		<script src="../js/branch.js"></script>	
-		<style>
-		.map{
-			width: 465px;
-			height: 400px;
-			display: block;
-			border-radius: 5px;
-		}
-		.map3{
-			width: 767px;
-			height: 400px;
-			display: block;
-			border-radius: 5px;
-		}
-		.VerRecorrido{
-			text-align: center;
-		}
-		#VerRecorridoBoton{
-			display: inline-block;
-		}
-		#NuevaParada{
-			display: inline-block;
-		}
-		#Titulo{
-			padding: 5px;
-		}
-
-		</style>
 	</head>
 
 	<body>
@@ -40,7 +14,7 @@
 	<header>
 
 			<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
-				<a class="navbar-brand" href="branch">Linea 101</a>
+				<a class="navbar-brand" href="welcome">Linea 101</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>

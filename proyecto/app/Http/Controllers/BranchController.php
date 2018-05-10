@@ -24,7 +24,7 @@ class BranchController extends Controller
 
     function add(Request $req){
         $req->validate([
-           'name'=>'required|max 191'
+           'name'=>'required|max:255'
         ]);
         $branch = new branch;
         $branch->name = $req->name;
@@ -34,7 +34,7 @@ class BranchController extends Controller
 
     function update($id,Request $req){
         $req->validate([
-           'name'=>'required|max 191'
+           'name'=>'required|max:255'
         ]);
         $branch = branch::FindOrFail($id);
         $branch->name = $req->name;
