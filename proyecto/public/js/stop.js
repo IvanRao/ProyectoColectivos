@@ -1,5 +1,7 @@
 function appStop(){
-
+    setTimeout(runApp,100)
+}
+function runApp(){
     const data = {
         branch : {},
         modStop : {},
@@ -53,46 +55,42 @@ function appStop(){
                   )
     }
 
-    setTimeout( () =>{
-        var bsas = {lat: -34.6037, lng: -58.3816};
+  
+    var bsas = {lat: -34.6037, lng: -58.3816};
 
-        var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 12,
-            center: bsas
-        })
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 12,
+        center: bsas
+    })
 
-        var directionsDisplay = new google.maps.DirectionsRenderer;
-        var directionsService = new google.maps.DirectionsService;
-        directionsDisplay.setMap(map);
 
-        map.addListener("click", (e) => {
-            const latLng = e.latLng
-            data.stopToCreate.latitude = latLng.lat()
-            data.stopToCreate.longitude = latLng.lng()
-        })
+    map.addListener("click", (e) => {
+        const latLng = e.latLng
+        data.stopToCreate.latitude = latLng.lat()
+        data.stopToCreate.longitude = latLng.lng()
+    })
 
-    },100)
+    var map2 = new google.maps.Map(document.getElementById('map2'), {
+        zoom: 12,
+        center: bsas
+    })
 
-    setTimeout( () =>{
-        var bsas = {lat: -34.6037, lng: -58.3816};
+    map2.addListener("click", (e) => {
+        const latLng = e.latLng
+        data.modStop.latitude = latLng.lat()
+        data.modStop.longitude = latLng.lng()
+    })
 
-        var map2 = new google.maps.Map(document.getElementById('map2'), {
-            zoom: 12,
-            center: bsas
-        })
+    var map3 = new google.maps.Map(document.getElementById('map3'), {
+        zoom: 12,
+        center: bsas
+    })
 
-        var directionsDisplay = new google.maps.DirectionsRenderer;
-        var directionsService = new google.maps.DirectionsService;
-        directionsDisplay.setMap(map2);
+    var directionsDisplay = new google.maps.DirectionsRenderer;
+    var directionsService = new google.maps.DirectionsService;
+    directionsDisplay.setMap(map3);
 
-        map2.addListener("click", (e) => {
-            const latLng = e.latLng
-            data.modStop.latitude = latLng.lat()
-            data.modStop.longitude = latLng.lng()
-        })
-
-    },100)
-
+    
     let markers = []
 
     function updateMarkers (stops){
@@ -101,27 +99,7 @@ function appStop(){
         markers = []
 
         const points = stops.map( s => ({lat:s.latitude,lng:s.longitude, id : s.id}))
-
-        setTimeout( () =>{
-            var bsas = {lat: -34.6037, lng: -58.3816};
-
-            var map3 = new google.maps.Map(document.getElementById('map3'), {
-                zoom: 12,
-                center: bsas
-            })
-
-            var directionsDisplay = new google.maps.DirectionsRenderer;
-            var directionsService = new google.maps.DirectionsService;
-            directionsDisplay.setMap(map3);
-
-            map3.addListener("click", (e) => {
-                const latLng = e.latLng
-                data.modStop.latitude = latLng.lat()
-                data.modStop.longitude = latLng.lng()
-            })
-
-        },100)
-
+        
         points.forEach( p => {    
             const marker = new google.maps.Marker({
                 position: p,
