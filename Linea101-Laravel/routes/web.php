@@ -27,13 +27,11 @@ Route::get('/stop', function () {
     return view('stop');
 })->middleware('auth');
 
-
 Route::get('api/branch','BranchController@getAll');
 Route::get('api/branch/{id}','BranchController@getById');
 Route::post('api/branch','BranchController@add');
 Route::put('api/branch/{id}','BranchController@update');
 Route::delete('api/branch/{id}','BranchController@delete');
-
 
 Route::get('api/stop','stopController@getAll');
 Route::get('api/stop/{branch_id}','stopController@getById');
