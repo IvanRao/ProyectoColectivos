@@ -57,39 +57,41 @@ function runApp(){
 
   
     var bsas = {lat: -34.6037, lng: -58.3816};
+    setTimeout(function(){
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 12,
+            center: bsas
+        })
 
-    var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 12,
-        center: bsas
-    })
+    
+        map.addListener("click", (e) => {
+            const latLng = e.latLng
+            data.stopToCreate.latitude = latLng.lat()
+            data.stopToCreate.longitude = latLng.lng()
+    })}, 100);
 
+    setTimeout(function(){
+        var map2 = new google.maps.Map(document.getElementById('map2'), {
+            zoom: 12,
+            center: bsas
+        })
 
-    map.addListener("click", (e) => {
-        const latLng = e.latLng
-        data.stopToCreate.latitude = latLng.lat()
-        data.stopToCreate.longitude = latLng.lng()
-    })
+    
+        map2.addListener("click", (e) => {
+            const latLng = e.latLng
+            data.modStop.latitude = latLng.lat()
+            data.modStop.longitude = latLng.lng()
+    })}, 100);
 
-    var map2 = new google.maps.Map(document.getElementById('map2'), {
-        zoom: 12,
-        center: bsas
-    })
-
-    map2.addListener("click", (e) => {
-        const latLng = e.latLng
-        data.modStop.latitude = latLng.lat()
-        data.modStop.longitude = latLng.lng()
-    })
-
-    var map3 = new google.maps.Map(document.getElementById('map3'), {
-        zoom: 12,
-        center: bsas
-    })
+    setTimeout(function(){
+        var map3 = new google.maps.Map(document.getElementById('map3'), {
+            zoom: 12,
+            center: bsas
+    })}, 100);
 
     var directionsDisplay = new google.maps.DirectionsRenderer;
     var directionsService = new google.maps.DirectionsService;
     directionsDisplay.setMap(map3);
-
     
     let markers = []
 
