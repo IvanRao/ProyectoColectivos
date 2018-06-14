@@ -100,6 +100,10 @@
 				
 			</table>
 
+			<div class="form-group">
+				<div class="map3" id="map3"></div>
+			</div>
+
 			<div id="NewStop" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
 					<div class="modal-content">
@@ -164,21 +168,19 @@
 				</div>
 			</div>
 
-			<div id="VerRecorrido" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-					<div class="modal-dialog modal-lg">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h4 class="modal-title">Recorrido</h4>
-								<button type="button" class="close" data-dismiss="modal">&times;</button>
-							</div>
-							<div class="modal-body">
-								<div class="form-group">
-									<div class="map3" id="map3"></div>
-								</div>
-							</div>
+			<!-- <div id="VerRecorrido" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title">Recorrido</h4>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+						<div class="modal-body">
+							
 						</div>
 					</div>
 				</div>
+			</div> -->
 		</div>
 
 	</main>

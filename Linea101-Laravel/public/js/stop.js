@@ -1,5 +1,5 @@
 function appStop(){
-    setTimeout(runApp,100)
+    setTimeout(runApp,1000)
 }
 function runApp(){
     const data = {
@@ -44,51 +44,70 @@ function runApp(){
     function modifyStop(stop){
         axios.put("api/stop/" + stop.id, {order:stop.order, name:stop.name, latitude:stop.latitude, longitude:stop.longitude, branch_id:stop.branch_id})
             .then((resp)=>{
-            updatePage();
-            data.modStop.name = "";   
-            data.modStop.order = 0; 
-            data.modStop.latitude = 0; 
-            data.modStop.longitude = 0; 
-        })
+                updatePage();
+                data.modStop.name = "";   
+                data.modStop.order = 0; 
+                data.modStop.latitude = 0; 
+                data.modStop.longitude = 0; 
+            })
             .catch((err)=>
-                   console.error(err.response.data)
-                  )
+                console.error(err.response.data)
+            )
     }
 
   
     var bsas = {lat: -34.6037, lng: -58.3816};
-    setTimeout(function(){
-        var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 12,
-            center: bsas
-        })
+    // setTimeout(function(){
+    //     var map = new google.maps.Map(document.getElementById('map'), {
+    //         zoom: 12,
+    //         center: bsas
+    //     })
 
     
-        map.addListener("click", (e) => {
-            const latLng = e.latLng
-            data.stopToCreate.latitude = latLng.lat()
-            data.stopToCreate.longitude = latLng.lng()
-    })}, 100);
+    //     map.addListener("click", (e) => {
+    //         const latLng = e.latLng
+    //         data.stopToCreate.latitude = latLng.lat()
+    //         data.stopToCreate.longitude = latLng.lng()
+    // })}, 100);
 
-    setTimeout(function(){
-        var map2 = new google.maps.Map(document.getElementById('map2'), {
-            zoom: 12,
-            center: bsas
-        })
+    // setTimeout(function(){
+    //     var map2 = new google.maps.Map(document.getElementById('map2'), {
+    //         zoom: 12,
+    //         center: bsas
+    //     })
 
     
-        map2.addListener("click", (e) => {
-            const latLng = e.latLng
-            data.modStop.latitude = latLng.lat()
-            data.modStop.longitude = latLng.lng()
-    })}, 100);
+    //     map2.addListener("click", (e) => {
+    //         const latLng = e.latLng
+    //         data.modStop.latitude = latLng.lat()
+    //         data.modStop.longitude = latLng.lng()
+    // })}, 100);
 
-    setTimeout(function(){
+    // setTimeout(function(){
+    //     var map3 = new google.maps.Map(document.getElementById('map3'), {
+    //         zoom: 12,
+    //         center: bsas
+    //     })
+
+    //     map3.addListener("click", (e) => {
+    //         const latLng = e.latLng
+    //         data.modStop.latitude = latLng.lat()
+    //         data.modStop.longitude = latLng.lng()
+    //     })
+
+    // }, 100);
+
         var map3 = new google.maps.Map(document.getElementById('map3'), {
             zoom: 12,
             center: bsas
-    })}, 100);
+        })
 
+        map3.addListener("click", (e) => {
+            const latLng = e.latLng
+            data.modStop.latitude = latLng.lat()
+            data.modStop.longitude = latLng.lng()
+        })
+    
     var directionsDisplay = new google.maps.DirectionsRenderer;
     var directionsService = new google.maps.DirectionsService;
     directionsDisplay.setMap(map3);
