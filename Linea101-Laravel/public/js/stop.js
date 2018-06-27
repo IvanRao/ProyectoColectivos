@@ -1,5 +1,5 @@
 function appStop(){
-    setTimeout(runApp,1000)
+    setTimeout(runApp,100)
 }
 function runApp(){
     const data = {
@@ -57,18 +57,18 @@ function runApp(){
 
   
     var bsas = {lat: -34.6037, lng: -58.3816};
-    // setTimeout(function(){
-    //     var map = new google.maps.Map(document.getElementById('map'), {
-    //         zoom: 12,
-    //         center: bsas
-    //     })
+    setTimeout(function(){
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 12,
+            center: bsas
+        })
 
     
-    //     map.addListener("click", (e) => {
-    //         const latLng = e.latLng
-    //         data.stopToCreate.latitude = latLng.lat()
-    //         data.stopToCreate.longitude = latLng.lng()
-    // })}, 100);
+        map.addListener("click", (e) => {
+            const latLng = e.latLng
+            data.stopToCreate.latitude = latLng.lat()
+            data.stopToCreate.longitude = latLng.lng()
+    })}, 100);
 
     // setTimeout(function(){
     //     var map2 = new google.maps.Map(document.getElementById('map2'), {
@@ -97,16 +97,16 @@ function runApp(){
 
     // }, 100);
 
-        var map3 = new google.maps.Map(document.getElementById('map3'), {
-            zoom: 12,
-            center: bsas
-        })
-
-        map3.addListener("click", (e) => {
-            const latLng = e.latLng
-            data.modStop.latitude = latLng.lat()
-            data.modStop.longitude = latLng.lng()
-        })
+    var map3 = new google.maps.Map(document.getElementById('map3'), {
+        zoom: 12,
+        center: bsas
+    })
+   
+    // map3.addListener("click", (e) => {
+    //     const latLng = e.latLng
+    //     data.modStop.latitude = latLng.lat()
+    //     data.modStop.longitude = latLng.lng()
+    // })
     
     var directionsDisplay = new google.maps.DirectionsRenderer;
     var directionsService = new google.maps.DirectionsService;
@@ -119,7 +119,7 @@ function runApp(){
         markers.forEach(m=> m.setMap(null))
         markers = []
 
-        const points = stops.map( s => ({lat:s.latitude,lng:s.longitude, id : s.id}))
+        const points = stops.map3( s => ({lat:s.latitude,lng:s.longitude, id : s.id}))
         
         points.forEach( p => {    
             const marker = new google.maps.Marker({
@@ -138,7 +138,7 @@ function runApp(){
 
         })
 
-        const waypoints =  points.slice(1, -1).map( p => ({ location : p , stopover : false}))
+        const waypoints =  points.slice(1, -1).map3( p => ({ location : p , stopover : false}))
 
         directionsService.route({
             origin: points[0],

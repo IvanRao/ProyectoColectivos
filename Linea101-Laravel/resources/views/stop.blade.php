@@ -113,16 +113,30 @@
 						</div>
 						<div class="modal-body">
 							<div class="form-group">
+								<label>Nombre:</label>
 								<input class="form-control" id="form-control" placeholder="Ingrese el nombre de la nueva parada" v-model="stopToCreate.name">
 							</div>
                             <div class="form-group">
-                                <input class="form-control" id="form-control" placeholder="Ingrese el orden de la nueva parada" v-model="stopToCreate.order">
+								<label>Orden:</label>
+                                <input class="form-control" id="form-control" v-model="stopToCreate.order">
+                            </div>
+                            <!-- <div class="form-group">
+								<label>Latitud:</label>
+                                <input class="form-control" id="form-control" v-model="stopToCreate.latitude" disabled>
                             </div>
                             <div class="form-group">
-                                <input class="form-control" id="form-control" placeholder="Seleccione en el mapa la ubicacion de la nueva parada" v-model="stopToCreate.latitude">
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control" id="form-control" placeholder="Seleccione en el mapa la ubicacion de la nueva parada" v-model="stopToCreate.longitude">
+								<label>Longitud:</label>
+                                <input class="form-control" id="form-control" v-model="stopToCreate.longitude" disabled>
+							</div> -->
+							<div class="form-row">
+								<div class="col">
+									<label>Latitud:</label>
+									<input class="form-control" id="form-control" v-model="stopToCreate.latitude" disabled>
+								</div>
+								<div class="col">
+									<label>Longitud:</label>
+									<input class="form-control" id="form-control" v-model="stopToCreate.longitude" disabled>
+								</div>
 							</div>
 							<div class="form-group">
 								<div class="map" id="map"></div>
@@ -140,21 +154,25 @@
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h4 class="modal-title">Nueva parada</h4>
+							<h4 class="modal-title">Modificar parada</h4>
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
 						</div>
 						<div class="modal-body">
 							<div class="form-group">
+								<label>Nombre:</label>
 								<input class="form-control" id="form-control" placeholder="Ingrese el nombre de la nueva parada" v-model="modStop.name">
 							</div>
                             <div class="form-group">
+								<label>Orden:</label>
                                 <input class="form-control" id="form-control" v-model="modStop.order">
                             </div>
                             <div class="form-group">
-                                <input class="form-control" id="form-control" v-model="modStop.latitude">
+								<label>Latitud:</label>
+                                <input class="form-control" id="form-control" v-model="modStop.latitude" disabled>
                             </div>
                             <div class="form-group">
-                                <input class="form-control" id="form-control" v-model="modStop.longitude">
+								<label>Longitud:</label>
+                                <input class="form-control" id="form-control" v-model="modStop.longitude" disabled>
 							</div>
 							<div class="form-group">
 								<div class="map" id="map2"></div>
