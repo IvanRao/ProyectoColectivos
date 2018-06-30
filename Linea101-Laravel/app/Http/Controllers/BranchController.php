@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Branch;
+use App\Stop;
 
 class BranchController extends Controller
 {
     function getAll(){
-        return branch::all();
+        return branch::with('stops')->get();    
     }
 
     function get(Request $req){

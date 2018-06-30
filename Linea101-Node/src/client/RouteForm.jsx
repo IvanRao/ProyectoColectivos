@@ -1,13 +1,49 @@
-import React from 'react';
+import React from 'react'
 import {render} from 'react-dom';
+import LatLongFields from './LatLongFields';
 
-class Input extends React.Component {
+export default class RouterForm extends React.Component{
+
+    // constructor(props){
+    //     super(props)
+    //     this.state = {
+    //         from : { lat : -34.55931882107318 , lng : -58.456907455139174},
+    //         to : { lat : -34.58049629262017 , lng : -58.45130747926478}
+    //     }
+    //     this.onChange = this.onChange.bind(this)
+    // }
+
+    // onChange(id,field,value){
+    //     this.setState( prevState => {
+    //         const newField = Object.assign({},prevState[id],{[field]:value})
+    //         return Object.assign({},prevState,{[id]:newField})
+    //     })
+    // }
+
+    // render(){
+    //     return (
+    //         <div>
+    //             <LatLongFields 
+    //                 id="from" 
+    //                 title="Desde" 
+    //                 value={this.state.from}
+    //                 onChange={this.onChange} />
+    //             <LatLongFields 
+    //                     id="to" 
+    //                     title="Hasta" 
+    //                     value={this.state.to}
+    //                     onChange={this.onChange} />
+    //             <button onClick={() => this.props.onFind(this.state)}>Buscar ruta</button>
+    //         </div>
+    //     )
+    // }
     constructor(props) {
         super(props);
         this.state = {valueFrom : "", valueTo: "", latFrom: 0, lngFrom: 0, latTo: 0, lngTo: 0, route : {} }
         this.getInputValueFrom = this.getInputValueFrom.bind(this);
         this.getInputValueTo = this.getInputValueTo.bind(this);
         this.printRoute = this.printRoute.bind(this);
+        this.setRoute = this.setRoute.bind(this);
     }
     
     getInputValueFrom(event) {
@@ -62,16 +98,44 @@ class Input extends React.Component {
             
             console.log(destination)
             
-            fetch("/api/branch/", {method:"POST", headers:{'content-type': 'application/json'}, body : JSON.stringify(destination)})
+            fetch("/api/branch", {method:"POST", headers:{'content-type': 'application/json'}, body : JSON.stringify(destination)})
                 .then( r => r.json())
                 .then(msg => {
                     this.setState({route: msg});
+                    
                 })
             } else {
-                console.log("Hubo errores")
+                console.log("Hubo errores.")
             }
         },3000)
-    }   
+    }
+    
+    setRoute(){
+        
+        if(this.state.route.p != undefined) {
+            
+            let stopList = 
+                this.state.route.p.map(
+                    stop => <li key={stop.number} className="list-group-item list-group-item-dark">Tomar el colectivo en la parada {stop.name}</li>
+                )
+                    
+            return (
+                <div>
+                    {stopList}
+                </div>
+            )
+
+        } else {
+            return (
+                <div>
+                    <li className="list-group-item list-group-item-dark">Sin Resultados</li>
+                </div>
+            )
+        }
+        
+        
+    }
+    
     
     render() {
                                                  
@@ -83,13 +147,19 @@ class Input extends React.Component {
                     <label className="sp">Hasta: </label>
                     <input type="text" value={this.state.valueTo} onChange={this.getInputValueTo} className="form-control"/>
                     <div className="sp">
-                        <button onClick={this.printRoute} type="button" className="btn btn-secondary btn-block">Buscar
+                        <button onClick={this.printRoute} type="button" className="btn btn-secondary btn-block">Mostrar opciones >>
                         </button>
                     </div>
+                    <div className="row">
+                        <div className="col-12 sp" >
+                            <ul className="list-group list-group-flush">
+                                {this.setRoute()}
+                            </ul>
+                        </div>                  
+                    </div>
                 </div>
+                <div id="map" className="col-8"/>
             </div>
         )
     }
 }
-
-export default Input;
