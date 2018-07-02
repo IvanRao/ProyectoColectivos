@@ -11,12 +11,12 @@ app.use("/",express.static(baseFolder))
 
 app.use(express.json())
 
-app.get("/api/branch",(req,resp)=>{
+app.get("/allRoutes",(req,resp)=>{
     ServerMockup()
         .then( busStopsData => resp.json(busStopsData) )
 })
 
-app.post("/api/branch",(req,resp) => {
+app.post("/route",(req,resp) => {
     const routeData = req.body
     ServerMockup()
         .then( busStopsData =>{

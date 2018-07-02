@@ -11,9 +11,10 @@ class App extends React.Component{
     this.state = { route : {} }
   }
 
+
   findRoute(routeData){
     console.log(routeData)
-    fetch("/api/branch",{
+    fetch("/route",{
       method : "POST",
       headers : {
         "content-type":"application/json"
@@ -51,7 +52,7 @@ var map = new google.maps.Map(document.getElementById('map'), {
 })
 directionsDisplay.setMap(map);
 
-fetch("/api/branch")
-  .then(reps => resp.json())
+fetch("/allRoutes")
+  .then(resp => resp.json())
   .then()
   .catch(console.error)

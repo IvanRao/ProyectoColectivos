@@ -26,7 +26,7 @@ export default function Result (props){
         return null 
     const route = beautifyRoute(props.route)
     const lis = route.map( (point,i)  =>{
-        const action = i % 2 == 0 ? "Caminar hasta " : "Bajarse en " 
+        const action = i % 2 == 0 ? "Caminar hasta la parada " : "Bajarse en " 
         const label = point.name + " del ramal #" + point.branch_id
         return <li key={i}>{ action + label }</li>
     })

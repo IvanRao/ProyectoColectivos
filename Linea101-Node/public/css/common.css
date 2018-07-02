@@ -1,0 +1,13 @@
+body{
+    background-color: #e5e5e5;
+}
+
+#map {
+    height: 550px;
+    width: 100%;
+    margin-top: 10px
+}
+
+.sp{
+    padding-top: 20px; 
+}
