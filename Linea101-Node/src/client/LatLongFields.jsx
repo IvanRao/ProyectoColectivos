@@ -17,11 +17,11 @@ export default class LatLongFields extends React.Component{
                 <label>{this.props.title}</label>
                 <div>
                     <span>Lat:</span>
-                    <input type="number" value={this.props.value.lat} onChange={(e) => this.changeValue("lat",e.target.value)} />
+                    <input type="text" value={this.props.from} onChange={(e) => this.changeValue("lat",e.target.value)} />
                 </div>
                 <div>
                     <span>Lon:</span>
-                    <input type="number" value={this.props.value.lng} onChange={(e) => this.changeValue("lng",e.target.value)} />
+                    <input type="text" value={this.props.to} onChange={(e) => this.changeValue("lng",e.target.value)} />
                 </div>
             </div>
         )

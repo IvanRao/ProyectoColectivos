@@ -28,27 +28,25 @@ constructor(data){
     this.id = data.id
     this.branch_id = data.branch_id
     this.name = data.name
+    this.branch_name = data.branch_name
 }
 }
 
 // configuración de tiempos y velocidades
 const maxWalkKm = 0.8
-
-
-
+debugger
 module.exports.findRoute = function (busStosData,routeData){
     const allStops = busStosData
                     .reduce( (stops,branch) => stops.concat(branch.stops) ,[])
                     .map(s => new Stop(s))
-    
-    
+        
     const start = new Point(
-            parseFloat(routeData.from.lat),
-            parseFloat(routeData.from.lng)
+            parseFloat(routeData.latFrom),
+            parseFloat(routeData.lngFrom)
         )
     const destination = new Point(
-            parseFloat(routeData.to.lat),
-            parseFloat(routeData.to.lng)
+            parseFloat(routeData.latTo),
+            parseFloat(routeData.lgnTo)
         )
 
     function getNextStop(point){
@@ -74,8 +72,7 @@ module.exports.findRoute = function (busStosData,routeData){
         const closestStops = getCloseStops(stop)
         return closestStops.concat( ns ? ns : [] )
     }
-    
-    
+        
     class Route{
     
         constructor(points){
