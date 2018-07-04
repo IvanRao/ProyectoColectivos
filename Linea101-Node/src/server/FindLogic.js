@@ -41,12 +41,12 @@ module.exports.findRoute = function (busStosData,routeData){
                     .map(s => new Stop(s))
         
     const start = new Point(
-            parseFloat(routeData.latFrom),
-            parseFloat(routeData.lngFrom)
+            parseFloat(routeData.from.lat),
+            parseFloat(routeData.from.lgn)
         )
     const destination = new Point(
-            parseFloat(routeData.latTo),
-            parseFloat(routeData.lgnTo)
+            parseFloat(routeData.to.lat),
+            parseFloat(routeData.to.lgn)
         )
 
     function getNextStop(point){

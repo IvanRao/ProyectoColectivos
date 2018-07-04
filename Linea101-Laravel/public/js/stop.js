@@ -1,26 +1,98 @@
 function appStop(){
-    setTimeout(runApp,100)
-}
-function runApp(){
     const data = {
         branch : {},
-        modStop : {},
+        modStop : {
+            address : ""
+        },
         stopToCreate : {
             name :"",
             order : 0,
             latitude : 0,
             longitude : 0,
-            branch_id : 0
-        }
+            branch_id : 0,
+            address : ""
+        },
+        fillStop : {}
     }
 
     const searchParams = new URLSearchParams(window.location.search.substring(1));
     const branchId = searchParams.get("id")
 
+    const googleKey = "AIzaSyDwpxOB_1gTbUHGwkyQ6XdCRXZG6hX3t94";
+    const geocoder = new google.maps.Geocoder;
+    let map;
+    let directionsDisplay;
+    let directionsService = new google.maps.DirectionsService;
+    directionsDisplay = new google.maps.DirectionsRenderer({ 
+        polylineOptions: {strokeColor:"#4a4a4a",strokeWeight:5}, 
+        suppressMarkers:true });
+
+    setTimeout(()=>{
+        let bsas = {lat: -34.6037, lng: -58.3816};
+        let mapOptions = {
+            zoom: 12,
+            center: bsas
+        }
+
+        map = new google.maps.Map(document.getElementById('map'), mapOptions);
+        map.addListener("click", (e) => {
+            placeMarker(event.latLng);
+        });
+
+        directionsDisplay.setMap(map);
+
+    } , 100)
+
+    function placeMarker(location) {
+        var marker = new google.maps.Marker({
+            position: location, 
+            map: map,
+            suppressMarkers: true
+        });
+    }
+
+    function updateMarkers (stops){
+
+        const points = stops.map( s => ({lat:s.latitude,lng:s.longitude, number: s.order, name: s.name, branch_id: s.branch_id, id : s.id}))
+
+        points.forEach( p => {
+            const marker = new google.maps.Marker({
+                position: p,
+                map: map,
+                draggable: false,
+                label: "" + p.number
+            })
+            marker.addListener("dragend",()=> {
+                axios.put("api/stop/" + p.id, {latitude:marker.position.lat() , longitude: marker.position.lng(), number: p.order, name: p.name, branch_id: p.branch_id, })
+                    .then( r => updatePage() )
+                    .catch(error => console.error(error.response ? error.response.data : error))
+            })
+        })
+
+        const waypoints =  points.slice(1, -1).map( p => ({ location : p , stopover : false}))
+
+        directionsService.route({
+            origin: points[0],
+            destination: points[points.length - 1],
+            waypoints: waypoints,
+            optimizeWaypoints: true,
+            travelMode: 'DRIVING'
+            },function(response, status) {
+            if (status === 'OK') {
+                directionsDisplay.setDirections(response);
+            } else {
+                console.error(response);
+            }
+        })
+    }
+
     function updatePage(){
         axios.get(`api/branch/${branchId}`)
-            .then(resp => data.branch = resp.data)
-            .catch(error => console.error(error.response.data))
+        .then(resp => { 
+            data.branch = resp.data
+            updateMarkers(data.branch.stops.sort(function(a,b) {return (a.order > b.order) ? 1 : ((b.order > a.order) ? -1 : 0);}))
+        })
+        .catch(error => console.error(error.response.data))
     }
 
     function deleteStop(stop){
@@ -32,136 +104,78 @@ function runApp(){
     }
 
     function fillModifyModal(stop){
+        stop.address == geocodeLatLng(geocoder, stop)
         axios.get("api/stop/" + stop.id)
             .then((resp)=>
-                  data.modStop = resp.data
+                  data.modStop = resp.data,
+                  data.modStop.address = stop.address
                  )
             .catch((err)=>
                    console.error(err.response.data)
                   )
     }
 
-    function modifyStop(stop){
-        axios.put("api/stop/" + stop.id, {order:stop.order, name:stop.name, latitude:stop.latitude, longitude:stop.longitude, branch_id:stop.branch_id})
+    // function fillModifyModal(fillStop){
+    //     fetch("http://maps.googleapis.com/maps/api/geocode/json?latlng=" + fillStop.latitude + ","+ fillStop.longitude + "&sensor=true")
+    //     .then( r => r.json() )
+    //     .then(msg => {
+    //         fillStop.address = msg.results[0];
+
+    //         axios.get("api/stop/" + fillStop.id)
+    //         .then((resp)=>{
+    //               data.modStop = resp.data,
+    //               data.modStop.address = fillStop.address
+                 
+    //         })
+    //         .catch((err)=>{
+    //                console.error(err.response.data)
+    //         }) 
+    //     })
+    // }
+
+    function geocodeLatLng(geocoder, stop) {
+        var latlng = {lat: stop.latitude, lng: stop.longitude};
+        geocoder.geocode({'location': latlng}, function(results, status) {
+            if (status === 'OK') {
+                if (results[0]) {
+                    return results[0]
+                }
+            } else {
+                console.log('Geocoder failed due to: ' + status);
+            }
+        });
+    }
+
+    function modifyStop(modStop){
+        fetch("https://maps.googleapis.com/maps/api/geocode/json?key=" + googleKey + "&address=" + this.modStop.address)
+        .then( r => r.json() )
+        .then(msg => {
+            this.modStop.latitude = msg.results[0].geometry.location.lat;
+            this.modStop.longitude = msg.results[0].geometry.location.lng;
+
+            axios.put("api/stop/" + modStop.id, {order:modStop.order, name:modStop.name, latitude:modStop.latitude, longitude:modStop.longitude, branch_id:modStop.branch_id})
             .then((resp)=>{
-                updatePage();
                 data.modStop.name = "";   
                 data.modStop.order = 0; 
                 data.modStop.latitude = 0; 
-                data.modStop.longitude = 0; 
+                data.modStop.longitude = 0;
+                updatePage(); 
             })
-            .catch((err)=>
+            .catch((err)=>{
                 console.error(err.response.data)
-            )
-    }
-
-  
-    var bsas = {lat: -34.6037, lng: -58.3816};
-    setTimeout(function(){
-        var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 12,
-            center: bsas
+            }) 
         })
-
-    
-        map.addListener("click", (e) => {
-            const latLng = e.latLng
-            data.stopToCreate.latitude = latLng.lat()
-            data.stopToCreate.longitude = latLng.lng()
-    })}, 100);
-
-    // setTimeout(function(){
-    //     var map2 = new google.maps.Map(document.getElementById('map2'), {
-    //         zoom: 12,
-    //         center: bsas
-    //     })
-
-    
-    //     map2.addListener("click", (e) => {
-    //         const latLng = e.latLng
-    //         data.modStop.latitude = latLng.lat()
-    //         data.modStop.longitude = latLng.lng()
-    // })}, 100);
-
-    // setTimeout(function(){
-    //     var map3 = new google.maps.Map(document.getElementById('map3'), {
-    //         zoom: 12,
-    //         center: bsas
-    //     })
-
-    //     map3.addListener("click", (e) => {
-    //         const latLng = e.latLng
-    //         data.modStop.latitude = latLng.lat()
-    //         data.modStop.longitude = latLng.lng()
-    //     })
-
-    // }, 100);
-
-    var map3 = new google.maps.Map(document.getElementById('map3'), {
-        zoom: 12,
-        center: bsas
-    })
-   
-    // map3.addListener("click", (e) => {
-    //     const latLng = e.latLng
-    //     data.modStop.latitude = latLng.lat()
-    //     data.modStop.longitude = latLng.lng()
-    // })
-    
-    var directionsDisplay = new google.maps.DirectionsRenderer;
-    var directionsService = new google.maps.DirectionsService;
-    directionsDisplay.setMap(map3);
-    
-    let markers = []
-
-    function updateMarkers (stops){
-
-        markers.forEach(m=> m.setMap(null))
-        markers = []
-
-        const points = stops.map3( s => ({lat:s.latitude,lng:s.longitude, id : s.id}))
-        
-        points.forEach( p => {    
-            const marker = new google.maps.Marker({
-                position: p,
-                map: map3,
-                draggable: true,
-                label: "" + p.id
-            })
-            marker.addListener("dragend",()=> {
-                axios.put(`api/stop/${p.id}`,{latitude : marker.position.lat() , longitude : marker.position.lng()})
-                    .then( r => updatePage() )
-                    .catch(error => console.error(error.response ? error.response.data : error))
-            })
-
-            markers.push(marker)
-
-        })
-
-        const waypoints =  points.slice(1, -1).map3( p => ({ location : p , stopover : false}))
-
-        directionsService.route({
-            origin: points[0],
-            destination: points[points.length - 1],
-            waypoints: waypoints,
-            optimizeWaypoints: true,
-            travelMode: 'DRIVING'
-        },function(response, status) {
-            if (status === 'OK') {
-                directionsDisplay.setDirections(response);
-                directionsDisplay.setOptions({
-                    suppressMarkers: true
-                });
-            } else {
-                console.error(response);
-            }
-        })
-
     }
 
     function addStop (stopToCreate){
         stopToCreate.branch_id = branchId
-        axios.post("api/stop",stopToCreate)
+        fetch("https://maps.googleapis.com/maps/api/geocode/json?key=" + googleKey + "&address=" + this.stopToCreate.address)
+            .then( r => r.json() )
+            .then(msg => {
+                this.stopToCreate.latitude = msg.results[0].geometry.location.lat;
+                this.stopToCreate.longitude = msg.results[0].geometry.location.lng;
+                console.log("Lat: " + this.stopToCreate.latitude + " Lng: " + this.stopToCreate.longitude);
+                axios.post("api/stop",stopToCreate)
             .then(resp => { 
             data.stopToCreate =  {
                 order : 0,
@@ -170,8 +184,9 @@ function runApp(){
                 longitude : 0
             }
             updatePage()
-        })
-            .catch(error => console.error(error.response.data))
+            })
+                .catch(error => console.error(error.response.data))
+            })
     }
 
     //Comando Vue Js
@@ -189,3 +204,4 @@ function runApp(){
     })
     updatePage();
 }
+

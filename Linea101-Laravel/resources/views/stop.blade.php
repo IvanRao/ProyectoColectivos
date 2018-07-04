@@ -101,7 +101,7 @@
 			</table>
 
 			<div class="form-group">
-				<div class="map3" id="map3"></div>
+				<div class="map" id="map"></div>
 			</div>
 
 			<div id="NewStop" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -120,27 +120,10 @@
 								<label>Orden:</label>
                                 <input class="form-control" id="form-control" v-model="stopToCreate.order">
                             </div>
-                            <!-- <div class="form-group">
-								<label>Latitud:</label>
-                                <input class="form-control" id="form-control" v-model="stopToCreate.latitude" disabled>
-                            </div>
                             <div class="form-group">
-								<label>Longitud:</label>
-                                <input class="form-control" id="form-control" v-model="stopToCreate.longitude" disabled>
-							</div> -->
-							<div class="form-row">
-								<div class="col">
-									<label>Latitud:</label>
-									<input class="form-control" id="form-control" v-model="stopToCreate.latitude" disabled>
-								</div>
-								<div class="col">
-									<label>Longitud:</label>
-									<input class="form-control" id="form-control" v-model="stopToCreate.longitude" disabled>
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="map" id="map"></div>
-							</div>
+								<label>Dirección:</label>
+                                <input class="form-control" id="form-control" v-model="stopToCreate.address">
+                            </div>
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
@@ -166,17 +149,10 @@
 								<label>Orden:</label>
                                 <input class="form-control" id="form-control" v-model="modStop.order">
                             </div>
-                            <div class="form-group">
-								<label>Latitud:</label>
-                                <input class="form-control" id="form-control" v-model="modStop.latitude" disabled>
-                            </div>
-                            <div class="form-group">
-								<label>Longitud:</label>
-                                <input class="form-control" id="form-control" v-model="modStop.longitude" disabled>
-							</div>
 							<div class="form-group">
-								<div class="map" id="map2"></div>
-							</div>
+								<label>Dirección:</label>
+                                <input class="form-control" id="form-control" v-model="modStop.address">
+                            </div>
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
@@ -186,19 +162,6 @@
 				</div>
 			</div>
 
-			<!-- <div id="VerRecorrido" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-lg">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h4 class="modal-title">Recorrido</h4>
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
-						</div>
-						<div class="modal-body">
-							
-						</div>
-					</div>
-				</div>
-			</div> -->
 		</div>
 
 	</main>

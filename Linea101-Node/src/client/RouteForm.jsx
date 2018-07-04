@@ -45,19 +45,20 @@ export default class RouterForm extends React.Component{
         if(this.state.latTo != 0 & this.state.lngTo != 0 & this.state.latFrom != 0 & this.state.lngFrom != 0){
         
             let destination = {
-                start : {
+                from : {
                     lat: this.state.latFrom,
                     lng: this.state.lngFrom
                 },
-                end : {
+                to : {
                     lat: this.state.latTo,
                     lng: this.state.lngTo                    
                 }
             }
             
             console.log(destination)
+            this.props.onFind(destination)
         }
-        this.props.onFind(this.state)
+        
     }
 
     render() {
@@ -70,8 +71,7 @@ export default class RouterForm extends React.Component{
                     <label className="sp">Hasta: </label>
                     <input type="text" value={this.state.valueTo} onChange={this.getInputValueTo} className="form-control"/>
                     <div className="sp">
-                        <button onClick={this.printRoute} type="button" className="btn btn-secondary btn-block">Mostrar opciones
-                        </button>
+                        <button onClick={this.printRoute} type="button" className="btn btn-secondary btn-block">Buscar rutas</button>
                     </div>
                 </div>
             </div>

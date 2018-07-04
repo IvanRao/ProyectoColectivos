@@ -7,7 +7,7 @@
         <link href="../css/main.css" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<script src="../js/app.js"></script>
-		<script src="../js/branch.js"></script>		
+        <script src="../js/welcome.js"></script>		
 	</head>
 
 	<body>
@@ -68,11 +68,39 @@
                         <a class="VerRecorrido" href="branch">Ramales</a>
                     </div>
                 </div>
+
+                <div id="welcomeApp" class="container">
+                    <div style="margin-top: 30px">
+                        <div class="form-group">
+                            <label for="branchsList">
+                                <h3 class="text text-center">Listado de Ramales</h3>
+                            </label>
+                            
+                            <div>
+                                <span v-for="branch in branches">
+                                    <label>
+                                        @{{ branch.name }}
+                                        <div :data-id="branch.id" class="color-box"></div>
+                                    </label>
+                                </span>
+                            </div>
+
+                        </div>
+
+                        <div>
+                            <!--<Google Maps>--> 
+                            <div class="form-group">
+                                <div class="map" id="map"></div>
+                            </div>
+                            
+                        </div>
+                    </div>  
+                </div>
                 
             </div>
 
         </main>
-            
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdyWuPQ0j6ebZ1gewB03l857nR0WOaUQc&callback=welcomeApp"></script>
     </body>
 
 </html>
