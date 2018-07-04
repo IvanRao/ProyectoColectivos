@@ -2,6 +2,7 @@ import React from 'react';
 import {render} from 'react-dom';
 import RouterForm from './RouteForm';
 import Result from './Result';
+import NavBarReact from './navbar.jsx';
 
 class App extends React.Component{
 
@@ -29,8 +30,11 @@ class App extends React.Component{
     render(){
         return ( 
             <main>
-                <RouterForm onFind={this.findRoute}/>
-                <Result route={this.state.route} />
+                <NavBarReact/>
+                <div className="container-fluid">
+                    <RouterForm onFind={this.findRoute}/>
+                    <Result route={this.state.route} />
+                </div>
             </main>
         )
     }

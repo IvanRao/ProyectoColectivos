@@ -65,7 +65,7 @@ export default class RouterForm extends React.Component{
                                                 
         return (
             <div className="row">
-                <div className = "col-4">
+                <div className = "col-md-6">
                     <label className="sp">Desde: </label>
                     <input type="text" value={this.state.valueFrom} onChange={this.getInputValueFrom} className="form-control" />
                     <label className="sp">Hasta: </label>

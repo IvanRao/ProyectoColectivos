@@ -68,7 +68,6 @@ function homeApp(){
         }
     }
 
-    //Google Maps Api End //
     function colorById(id){
         return "hsl(" + (id * 205) % 360 + ",100%,50%)";
     }

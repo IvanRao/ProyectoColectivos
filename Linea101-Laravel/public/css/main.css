@@ -1,10 +1,10 @@
 .map{
-    width: 465px;
-    height: 400px;
+    height: 550px;
+    width: 100%;
     display: block;
     border-radius: 5px;
 }
-.map3{
+/* .map3{
     width: 767px;
     height: 400px;
     display: block;
@@ -15,7 +15,7 @@
 }
 #VerRecorridoBoton{
     display: inline-block;
-}
+} */
 #NuevaParada{
     display: inline-block;
 }
