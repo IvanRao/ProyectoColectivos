@@ -28,6 +28,7 @@ Route::get('/stop', function () {
 })->middleware('auth');
 
 Route::get('api/branch','BranchController@getAll');
+Route::get('api/branches','BranchController@getAllWithoutStops');
 Route::get('api/branch/{id}','BranchController@getById');
 Route::post('api/branch','BranchController@add');
 Route::put('api/branch/{id}','BranchController@update');

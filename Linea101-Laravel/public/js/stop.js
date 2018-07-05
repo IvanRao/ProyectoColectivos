@@ -2,6 +2,11 @@ function appStop(){
     const data = {
         branch : {},
         modStop : {
+            name :"",
+            order : 0,
+            latitude : 0,
+            longitude : 0,
+            branch_id : 0,
             address : ""
         },
         stopToCreate : {
@@ -104,46 +109,20 @@ function appStop(){
     }
 
     function fillModifyModal(stop){
-        stop.address == geocodeLatLng(geocoder, stop)
-        axios.get("api/stop/" + stop.id)
-            .then((resp)=>
+        fetch("https://maps.googleapis.com/maps/api/geocode/json?key=" + googleKey + "&latlng=" + stop.latitude + "," + stop.longitude)
+                .then( r => r.json() )
+                .then(msg => {
+                    address = msg.results[0].formatted_address.split(",")[0]
+                
+                axios.get("api/stop/" + stop.id)
+                .then((resp)=>{
                   data.modStop = resp.data,
-                  data.modStop.address = stop.address
-                 )
-            .catch((err)=>
+                  data.modStop.address = address
+                })
+            .catch((err)=>{
                    console.error(err.response.data)
-                  )
-    }
-
-    // function fillModifyModal(fillStop){
-    //     fetch("http://maps.googleapis.com/maps/api/geocode/json?latlng=" + fillStop.latitude + ","+ fillStop.longitude + "&sensor=true")
-    //     .then( r => r.json() )
-    //     .then(msg => {
-    //         fillStop.address = msg.results[0];
-
-    //         axios.get("api/stop/" + fillStop.id)
-    //         .then((resp)=>{
-    //               data.modStop = resp.data,
-    //               data.modStop.address = fillStop.address
-                 
-    //         })
-    //         .catch((err)=>{
-    //                console.error(err.response.data)
-    //         }) 
-    //     })
-    // }
-
-    function geocodeLatLng(geocoder, stop) {
-        var latlng = {lat: stop.latitude, lng: stop.longitude};
-        geocoder.geocode({'location': latlng}, function(results, status) {
-            if (status === 'OK') {
-                if (results[0]) {
-                    return results[0]
-                }
-            } else {
-                console.log('Geocoder failed due to: ' + status);
-            }
-        });
+            })
+        })
     }
 
     function modifyStop(modStop){
@@ -205,3 +184,39 @@ function appStop(){
     updatePage();
 }
 
+    // fetch("https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyD-9eVfLZ8aOuIUoh84nDcvAZsS53RRoiQ&latlng=" + marker.position.lat() + "," + marker.position.lng())
+    //             .then( r => r.json() )
+    //             .then(msg => {
+    //                 state.newStop.name = msg.results[0].formatted_address.split(",")[0]
+    //                 document.getElementById("stopsName").value = state.newStop.name
+    //             })
+    // function fillModifyModal(fillStop){
+    //     fetch("http://maps.googleapis.com/maps/api/geocode/json?latlng=" + fillStop.latitude + ","+ fillStop.longitude + "&sensor=true")
+    //     .then( r => r.json() )
+    //     .then(msg => {
+    //         fillStop.address = msg.results[0];
+
+    //         axios.get("api/stop/" + fillStop.id)
+    //         .then((resp)=>{
+    //               data.modStop = resp.data,
+    //               data.modStop.address = fillStop.address
+                 
+    //         })
+    //         .catch((err)=>{
+    //                console.error(err.response.data)
+    //         }) 
+    //     })
+    // }
+
+        // function geocodeLatLng(geocoder, stop) {
+    //     var latlng = {lat: stop.latitude, lng: stop.longitude};
+    //     geocoder.geocode({'location': latlng}, function(results, status) {
+    //         if (status === 'OK') {
+    //             if (results[0]) {
+    //                 return results[0]
+    //             }
+    //         } else {
+    //             console.log('Geocoder failed due to: ' + status);
+    //         }
+    //     });
+    // }

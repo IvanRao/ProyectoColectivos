@@ -35,8 +35,8 @@ function homeApp(){
                     let request = {
                         origin: points[0],
                         destination: points[points.length - 1],
-                        // waypoints: waypoints,
-                        optimizeWaypoints: true,   
+                        waypoints: waypoints,
+                        optimizeWaypoints: false,   
                         travelMode: 'DRIVING'
                     };
                     

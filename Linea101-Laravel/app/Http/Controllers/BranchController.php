@@ -13,6 +13,10 @@ class BranchController extends Controller
         return branch::with('stops')->get();    
     }
 
+    function getAllWithoutStops(){
+        return branch::all();    
+    }
+
     function get(Request $req){
         return branch::FindOrFail($id);
     }
