@@ -1,0 +1,28 @@
+Ruta repositorio (Estan los dos proyectos en el mismo repositorio):
+
+https://github.com/IvanRao/ProyectoColectivos-Linea101
+
+Pasos:
+**(Laravel):
+*Crear base y levantar el proyecto:
+-Instalar Composer
+-Crear la base de datos. (En mi caso use MySql, el script para crear la base esta en "ProyectoColectivos-Linea101\Linea101-Laravel\Schema\init.sql". En ese archivo estan separados los script de creacion de la base y los insert para los ramales y las paradas.)
+-Una vez creada la base, acceder desde el cmd a la carpeta "Linea101-Laravel", y poner "php artisan migrate" para hacer las migraciones y crear las tablas necesarias para correr el proyecto.
+-Ya creadas las tablas, puede hacer los inserts de los ramales y las paradas. Para esto vaya nuevamente al init.sql y utilice los script de insert que se encuentran en ese archivo en el MySql.
+-Devuelta en el cmd, utilice el comando "php artisan serve" para levantar el servidor e ingrese a la ruta que le muestra.
+
+*Utilizarlo:
+-Lo primero que tendra que hacer es registrarse, ya que tiene que loguearse para poder utilizar el sitio. Para esto, en la esquina superior derecha de la pantalla clickee donde dice "Registrarse" y complete los datos.
+-Una vez registrado y logueado, si utliza el link que dice "Ver ramales" lo llevara a la tabla donde figurar los ramales que estan creados. Desde ahi usted puede crear nuevos con el boton "Crear nuevo" o modificarlos con el boton "Modificar" y eliminarlos con el boton "Eliminar". Tambien puede ver las paradas que tiene asociadas con el boton "Paradas".
+-Al entrar a las paradas de un ramal, podra ver la tabla donde figuran las paradas que tiene asociadas, crear nuevas con el boton "Crear nuevo" o modificarlos con el boton "Modificar" y eliminarlos con el boton "Eliminar". Ademas, en la parte inferior de la pantalla esta el mapa donde figura la ruta del ramal, segun las paradas asociadas.
+-Cuando cree alguna parada, debe completar los campos nombre, orden y dirección, completando esta ultima con la dirección mas exacta posible.
+-En caso de querer modificar alguna, los datos preexistentes se van a cargar automaticamente y usted puede modificar lo que quiera.
+
+**Node:
+*Levantar proyecto:
+-Instalar Node.
+-Desde el cmd, acceder a la carpeta "Linea101-Node" y poner "npm install" para instalar los modulos necesarios para que funcione el proyecto. (En mi caso, la carpeta con los modulos esta en el repositorio, por lo que no haria falta hacer este paso.)
+-Una vez instalados los modulos, utilizar el comando "npm start" para levantar el servidor. Para acceder a la pagina ponga en su navegador "http://localhost:8080/index.html".
+
+*Utilizarlo:
+-En el campo "Desde" ponga la dirección donde se encuentra, en el campo "Hasta" ponga la dirección hasta donde quiere llegar. Luego, presione el boton "Buscar ruta", la página le mostrara los pasos a seguir para llegar al destino deseado, y tambien le mostrara en el mapa que esta debajo la localización en el mapa.
